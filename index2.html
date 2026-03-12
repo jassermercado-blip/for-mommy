@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Mommy G</title>
+    <title>A Surprise for Mommy G</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             background: radial-gradient(circle, #ff9a9e 0%, #fecfef 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -18,12 +18,10 @@
             text-align: center;
         }
 
-        /* Floating Hearts Background Animation */
+        /* Heart Background */
         .heart {
             position: absolute;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 20px;
-            user-select: none;
+            color: rgba(255, 255, 255, 0.7);
             animation: float 10s linear infinite;
             z-index: 1;
         }
@@ -33,64 +31,94 @@
             100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
-        .container {
-            background: rgba(255, 255, 255, 0.9);
+        /* The Gift Box Screen */
+        #gift-container {
+            z-index: 20;
+            cursor: pointer;
+            transition: 0.5s;
+        }
+
+        .gift-box {
+            font-size: 100px;
+            animation: bounce 2s infinite;
+        }
+
+        .tap-text {
+            color: #ff758c;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* The Hidden Letter */
+        #main-content {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
             padding: 40px;
             border-radius: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             max-width: 500px;
-            width: 90%;
+            width: 85%;
             z-index: 10;
             border: 2px solid #ff758c;
-            animation: fadeIn 2s ease-in-out;
         }
 
-        h1 { color: #ff758c; font-size: 2rem; margin-bottom: 20px; }
-        
-        .message {
-            color: #555;
-            line-height: 1.8;
-            font-size: 1.2rem;
-            font-style: italic;
-            margin-bottom: 30px;
-        }
+        h1 { color: #ff758c; font-size: 2.2rem; margin-bottom: 20px; }
+        .message { color: #555; line-height: 1.8; font-size: 1.25rem; font-style: italic; margin-bottom: 30px; }
+        .signature { font-weight: bold; color: #ff758c; font-size: 1.5rem; }
 
-        .signature {
-            font-weight: bold;
-            color: #ff758c;
-            font-size: 1.3rem;
+        /* Animations */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-30px);}
+            60% {transform: translateY(-15px);}
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
+        .fade-in { animation: fadeIn 2s forwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
     <script>
-        for (let i = 0; i < 15; i++) {
+        // Create background hearts
+        for (let i = 0; i < 20; i++) {
             let heart = document.createElement('div');
             heart.className = 'heart';
             heart.innerHTML = '❤️';
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDelay = Math.random() * 10 + 's';
-            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.animationDelay = Math.random() * 8 + 's';
+            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
             document.body.appendChild(heart);
+        }
+
+        function openGift() {
+            document.getElementById('gift-container').style.display = 'none';
+            const content = document.getElementById('main-content');
+            content.style.display = 'block';
+            content.classList.add('fade-in');
         }
     </script>
 
-    <div class="container">
+    <div id="gift-container" onclick="openGift()">
+        <div class="gift-box">🎁</div>
+        <div class="tap-text">Mommy, you have a message!<br>Click to open</div>
+    </div>
+
+    <div id="main-content">
         <h1>To: Mommy G ❤️</h1>
         <div class="message">
             Mommy, thank you for being my mom. I will miss you a lot. <br><br>
             When I miss my mama, I can hug you... but now, asa naman ko ani? <br><br>
-            I miss you and wish you all the best. Amping mommy stay healty.
+            I miss you and wish you all the best. Amping mommy.
         </div>
         <div class="signature">I Love You!</div>
     </div>
 
 </body>
-
 </html>
